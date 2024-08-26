@@ -210,7 +210,8 @@ class GitHubRunnerMatrix
 
   sig { params(runner: GitHubRunner).returns(T::Boolean) }
   def active_runner?(runner)
-    return true if @all_supported || @deleted_formulae.present?
+    return true if @all_supported
+    return true if @deleted_formulae.present? && !@dependent_matrix
 
     testable_formulae(runner).present?
   end
